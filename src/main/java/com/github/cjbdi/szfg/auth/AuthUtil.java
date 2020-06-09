@@ -1,4 +1,4 @@
-package com.cjbdi.szfj.auth;
+package com.github.cjbdi.szfg.auth;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.Mode;

@@ -1,4 +1,4 @@
-package com.cjbdi.szfj.auth;
+package com.github.cjbdi.szfg.auth;
 
 /**
  * @author Boning Liang
