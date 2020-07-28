@@ -36,6 +36,8 @@ public class SearchDataGenerator {
      *
      * @param publicKey 公钥
      * @param role 角色
+     * @param basicInfo 基本信息
+     * @throws Exception 异常
      */
     public SearchDataGenerator(String publicKey, String role, BasicInfo basicInfo) throws Exception {
         this.basicInfo = basicInfo;
