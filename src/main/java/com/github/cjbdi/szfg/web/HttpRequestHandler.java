@@ -33,12 +33,17 @@ public class HttpRequestHandler {
         InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
         char[] charBuf = new char[1024];
         int mark;
+//        System.out.println("Reading...");
+        int i = 0;
         while ((mark = inputStreamReader.read(charBuf)) != -1) {
+//            System.out.println(i + " charBuf = " + String.valueOf(charBuf) + " mark = " + mark);
             stringBuilder.append(charBuf, 0, mark);
             if (mark < charBuf.length) {
                 break;
             }
+            i++;
         }
+//        System.out.println("Reading end...");
 
         String receivedContent = stringBuilder.toString();
         handleHttpMessage(receivedContent);
@@ -57,14 +62,15 @@ public class HttpRequestHandler {
         responseEntity.putHeader("Content-Type", responseContentType);
         responseEntity.setBody(CollectionUtil.join(responseContent, ""));
 
-        System.out.println(responseEntity.getResponseMessage());
+//        System.out.println(responseEntity.getResponseMessage());
         return responseEntity.getResponseMessage();
     }
 
     private void handleHttpMessage(String msg) {
         if (StrUtil.isNotBlank(msg)) {
 
-            System.out.println(msg);
+//            System.out.println("Messages are ... ");
+//            System.out.println(msg);
 
             String[] splits = msg.split("\r\n");
 
@@ -101,6 +107,10 @@ public class HttpRequestHandler {
             }
             if (contentType != null) {
                 ObjectMapper objectMapper = new ObjectMapper();
+                String[] contentTypeCharset = contentType.split(";");
+                if (contentTypeCharset != null && contentTypeCharset.length == 2) {
+                    contentType = contentTypeCharset[0];
+                }
                 switch (contentType) {
                     case "application/json":
 
@@ -132,7 +142,8 @@ public class HttpRequestHandler {
 
                         break;
                     case "application/x-www-form-urlencoded":
-
+//                        System.out.println("In case " + contentType);
+//                        System.out.println("Have body " + body);
                         Map<String, String> params = new HashMap<>();
                         String[] values = body.split("&");
                         int i = 0;

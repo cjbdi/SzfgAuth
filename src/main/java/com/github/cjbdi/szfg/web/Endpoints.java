@@ -8,7 +8,6 @@ import com.github.cjbdi.szfg.data.DocumentType;
 import com.github.cjbdi.szfg.data.PartyType;
 import com.github.cjbdi.szfg.data.SearchDataGenerator;
 import com.github.cjbdi.szfg.data.SearchHolder;
-import com.google.common.cache.Cache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,12 +57,15 @@ public class Endpoints {
     public Map<String, Object> searchData(Map<String, Object> data) {
         Map<String, Object> objectMap = new HashMap<>();
         try {
+            if(data.get("id") == null) {
+                throw new Exception("id is null");
+            }
             String id = data.get("id").toString();
             if (StrUtil.isBlank(id)) {
                 objectMap.put("data", null);
             } else {
-                Cache<String, SearchVO> cache = SearchHolder.getInstance();
-                SearchVO searchVO = cache.getIfPresent(id);
+//                SearchVO searchVO = SearchHolder.getSearch(id);
+                SearchVO searchVO = SearchHolder.getSearchByGoogleCache(id);
                 objectMap.put("data", searchVO);
             }
 
@@ -72,7 +74,7 @@ public class Endpoints {
 
             return objectMap;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
             objectMap.put("code", 1);
             objectMap.put("msg", "fail");
             objectMap.put("data", null);

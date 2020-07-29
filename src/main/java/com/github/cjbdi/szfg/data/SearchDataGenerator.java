@@ -12,7 +12,6 @@ import com.github.cjbdi.szfg.core.exception.NoPublicKeyException;
 import com.github.cjbdi.szfg.core.exception.NoRoleException;
 import com.github.cjbdi.szfg.core.util.StringUtils;
 import com.github.cjbdi.szfg.core.vo.*;
-import com.google.common.cache.Cache;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
@@ -64,10 +63,20 @@ public class SearchDataGenerator {
 
     }
 
-    public void setBasicInfo(BasicInfo basicInfo) {
+    /**
+     *
+     * @param basicInfo 文书基本信息
+     *                  包括：案号、案件标识、案由、案件类型
+     */
+    private void setBasicInfo(BasicInfo basicInfo) {
         this.basicInfo = basicInfo;
     }
 
+    /**
+     *
+     * @param type
+     * @param content
+     */
     public void addDocument(@NonNull DocumentType type, @NonNull String content) {
         addDocument(type, content, null);
     }
@@ -116,11 +125,12 @@ public class SearchDataGenerator {
 
     public String getSearchId() throws Exception {
         if (this.searchVO != null) {
-            Cache<String, SearchVO> cache = SearchHolder.getInstance();
-            SearchVO searchVO = cache.getIfPresent(searchId);
 
+//            SearchVO searchVO = SearchHolder.getSearch(searchId);
+            SearchVO searchVO = SearchHolder.getSearchByGoogleCache(searchId);
             if (searchVO == null) {
-                cache.put(searchId, this.searchVO);
+//                SearchHolder.addSearch(searchId, this.searchVO);
+                SearchHolder.addSearchIntoGoogleCache(searchId, this.searchVO);
             }
             return searchId;
         }
