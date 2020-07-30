@@ -68,6 +68,7 @@ public class Demo {
                     .downloadReport()
                     .addParty(PartyType.PEOPLE, "张三", "123123199001010001", "被告")
                     .addParty(PartyType.PEOPLE, "李四", "123123199001010002", "原告")
+                    .nationwide()
                     .build();
             String searchId = searchDataGenerator.getSearchId();
             System.out.println("Search ID: " + searchId);

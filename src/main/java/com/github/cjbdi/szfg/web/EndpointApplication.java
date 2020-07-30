@@ -10,8 +10,7 @@ import javax.xml.ws.Endpoint;
 public class EndpointApplication {
 
     public static void main(String[] args) {
-        Endpoint.publish("http://localhost:8080/searchData", new SearchDataServiceImpl());
-//        new ServerListeningThread(27401).start();
+        Endpoint.publish("http://localhost:27401/searchData", new SearchDataServiceImpl());
     }
 
 }

@@ -38,10 +38,19 @@ public class SearchVO {
     private String accessKey;
 
     /**
+     * 初始数据范围是否为全国
+     */
+    private Boolean courtNationwide;
+
+    /**
      * 签名
      */
     private String sign;
 
+    /**
+     * 时间戳
+     */
+    private String timestamp;
 
     /**
      * 其它参数（预留，暂时不用填）
@@ -103,5 +112,21 @@ public class SearchVO {
 
     public String getSign() {
         return sign;
+    }
+
+    public Boolean getCourtNationwide() {
+        return courtNationwide;
+    }
+
+    public void setCourtNationwide(Boolean courtNationwide) {
+        this.courtNationwide = courtNationwide;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

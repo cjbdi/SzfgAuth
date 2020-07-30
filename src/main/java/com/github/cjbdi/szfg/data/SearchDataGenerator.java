@@ -135,6 +135,18 @@ public class SearchDataGenerator {
         searchVO.getLegalCase().getParties().add(partyVO);
     }
 
+    public void nationWide(Boolean nationwide) {
+        if (nationwide != null) {
+            if (nationwide) {
+                searchVO.setCourtNationwide(true);
+            } else {
+                searchVO.setCourtNationwide(null);
+            }
+        } else {
+            searchVO.setCourtNationwide(null);
+        }
+    }
+
     public void addParty(@NonNull PartyType type,
                          @NonNull String partyName,
                          String partyId,
@@ -350,10 +362,8 @@ public class SearchDataGenerator {
     private void initSign() throws Exception {
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("+08:00"));
         String timestamp = String.valueOf(localDateTime.toEpochSecond(ZoneOffset.of("+08:00")));
-        basicInfo.setTimestamp(timestamp);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String basicInfoString = objectMapper.writeValueAsString(basicInfo);
-        searchVO.setSign(AuthUtil.encryptRSA(basicInfoString, this.publicKey));
+        searchVO.setTimestamp(timestamp);
+        searchVO.setSign(AuthUtil.encryptRSA(timestamp, this.publicKey));
     }
 
     private void initLegalCase() {
@@ -402,6 +412,8 @@ public class SearchDataGenerator {
         private String reportVersion;
 
         private List<PartyVO> partyVOList = new ArrayList<>();
+
+        private Boolean nationwide = false;
 
         SearchDataBuilder() {
 
@@ -465,6 +477,8 @@ public class SearchDataGenerator {
                         partyVO.getPartyId(),
                         partyVO.getPartyIdentity());
             });
+
+            searchDataGenerator.nationWide(nationwide);
 
             return searchDataGenerator;
         }
@@ -621,6 +635,11 @@ public class SearchDataGenerator {
             documentVO.setDocumentContent(content);
             documentVO.setFileName(fileName);
             this.documentVOList.add(documentVO);
+            return this;
+        }
+
+        public SearchDataBuilder nationwide() {
+            this.nationwide = true;
             return this;
         }
     }
