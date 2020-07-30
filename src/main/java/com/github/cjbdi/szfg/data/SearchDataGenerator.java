@@ -261,6 +261,7 @@ public class SearchDataGenerator {
     public void saveReport2Oss(OssVO ossVO, String reportVersion) throws Exception {
         setDownloadMethod(GenerateMethod.OSS, ossVO, reportVersion);
     }
+
     public void saveReport2Oss(OssVO ossVO) throws Exception {
         setDownloadMethod(GenerateMethod.OSS, ossVO);
     }
