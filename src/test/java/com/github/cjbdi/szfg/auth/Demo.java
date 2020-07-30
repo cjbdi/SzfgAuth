@@ -53,6 +53,33 @@ public class Demo {
     }
 
     @Test
+    public void getSearchIdDemo2() {
+        try {
+            SearchDataGenerator searchDataGenerator = SearchDataGenerator
+                    .builder()
+                    .role("ROLE_TEST")
+                    .publicKey(TestConstant.publicKey)
+                    .caseId("（2000）最高法民再111号")
+                    .caseCause("盗窃罪")
+                    .user("wangxiaoming", "王小明")
+                    .court("石家庄市中级人民法院", "1234")
+                    .addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent)
+                    .addDocument(DocumentType.OTHER, "文书", "庭审笔录.doc")
+                    .downloadReport()
+                    .addParty(PartyType.PEOPLE, "张三", "123123199001010001", "被告")
+                    .addParty(PartyType.PEOPLE, "李四", "123123199001010002", "原告")
+                    .build();
+            String searchId = searchDataGenerator.getSearchId();
+            System.out.println("Search ID: " + searchId);
+
+            System.out.println(searchDataGenerator.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void getSearchIdDemo() {
         try {
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
