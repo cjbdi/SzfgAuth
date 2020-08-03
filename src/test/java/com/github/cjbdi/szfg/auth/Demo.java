@@ -57,8 +57,8 @@ public class Demo {
         try {
             SearchDataGenerator searchDataGenerator = SearchDataGenerator
                     .builder()
-                    .role("ROLE_TEST")
-                    .publicKey(TestConstant.publicKey)
+                    .role(TestConstant.ROLE_DEV_TEST)
+                    .publicKey(TestConstant.ROLE_DEV_TEST_publicKey)
                     .caseId("（2000）最高法民再111号")
                     .caseCause("盗窃罪")
                     .user("wangxiaoming", "王小明")
@@ -84,7 +84,8 @@ public class Demo {
     public void getSearchIdDemo() {
         try {
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
-            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.publicKey, "ROLE_TEST", basicInfo);
+            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(
+                    TestConstant.ROLE_DEV_TEST_publicKey, TestConstant.ROLE_DEV_TEST, basicInfo);
             searchDataGenerator.addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent);
             searchDataGenerator.addDocument(DocumentType.OTHER, "文书");
             searchDataGenerator.setCourt("石家庄市中级人民法院", "1234");
@@ -108,7 +109,7 @@ public class Demo {
     public void getSearchIdWithoutPartyDemo() {
         try {
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
-            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.publicKey, "ROLE_TEST", basicInfo);
+            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.ROLE_DEV_TEST_publicKey, TestConstant.ROLE_DEV_TEST, basicInfo);
             searchDataGenerator.addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent);
             searchDataGenerator.addDocument(DocumentType.OTHER, "文书");
             searchDataGenerator.setCourt("石家庄市中级人民法院", "1234");
@@ -139,7 +140,7 @@ public class Demo {
 
 
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
-            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.publicKey, "ROLE_TEST", basicInfo);
+            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.ROLE_DEV_TEST_publicKey, TestConstant.ROLE_DEV_TEST, basicInfo);
             searchDataGenerator.addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent);
             searchDataGenerator.addDocument(DocumentType.OTHER, "文书");
             searchDataGenerator.setCourt("石家庄市中级人民法院", "1234");
@@ -167,7 +168,7 @@ public class Demo {
 
 
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
-            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.publicKey, "ROLE_TEST", basicInfo);
+            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.ROLE_DEV_TEST_publicKey, TestConstant.ROLE_DEV_TEST, basicInfo);
             searchDataGenerator.addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent);
             searchDataGenerator.addDocument(DocumentType.OTHER, "文书");
             searchDataGenerator.setCourt("石家庄市中级人民法院", "1234");
@@ -194,7 +195,7 @@ public class Demo {
 
 
             BasicInfo basicInfo = new BasicInfo("（2000）最高法民再111号", "盗窃罪", null, null);
-            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.publicKey, "ROLE_TEST", basicInfo);
+            SearchDataGenerator searchDataGenerator = new SearchDataGenerator(TestConstant.ROLE_DEV_TEST_publicKey, TestConstant.ROLE_DEV_TEST, basicInfo);
             searchDataGenerator.addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent);
             searchDataGenerator.addDocument(DocumentType.OTHER, "文书");
             searchDataGenerator.setCourt("石家庄市中级人民法院", "1234");
