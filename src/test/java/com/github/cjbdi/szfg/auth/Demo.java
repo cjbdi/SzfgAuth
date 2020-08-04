@@ -19,7 +19,6 @@ public class Demo {
 
     @Test
     public void FtpDemo() throws Exception {
-        String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqPvovSfXcwBbW8cKMCgwqNpsYuzF8RPAPFb7LGsnVo44JhM/xxzDyzoYtdfNmtbIuKVi9PzIsyp6rg+09gbuI6UGwBZ5DWBDBMqv5MPdOF5dCQkB2Bbr5yPfURPENypUz+pBFBg41d+BC+rwRiXELwKy7Y9caD/MtJyHydj8OUwIDAQAB";
         FtpVO ftpVO = new FtpVO();
         ftpVO.setHost("192.168.1.1");
         ftpVO.setPort(21);
@@ -27,29 +26,59 @@ public class Demo {
         ftpVO.setPassword("demo");
         ftpVO.setEncoding("utf-8");
         ftpVO.setWorkDir("/report");
-        String ftp = SzfgAuth.getFtp(ftpVO, publicKey);
+        String ftp = SzfgAuth.getFtp(ftpVO, TestConstant.ROLE_DEV_TEST_publicKey);
         System.out.println(ftp);
     }
 
     @Test
     public void OssDemo() throws Exception {
-        String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqPvovSfXcwBbW8cKMCgwqNpsYuzF8RPAPFb7LGsnVo44JhM/xxzDyzoYtdfNmtbIuKVi9PzIsyp6rg+09gbuI6UGwBZ5DWBDBMqv5MPdOF5dCQkB2Bbr5yPfURPENypUz+pBFBg41d+BC+rwRiXELwKy7Y9caD/MtJyHydj8OUwIDAQAB";
         OssVO ossVO = new OssVO();
         ossVO.setEndpoint("http://oss-cn-beijing.aliyuncs.com");
         ossVO.setAccessKeyId("xxx");
         ossVO.setAccessKeySecret("xxx");
-        String oss = SzfgAuth.getOss(ossVO, publicKey);
+        String oss = SzfgAuth.getOss(ossVO, TestConstant.ROLE_DEV_TEST_publicKey);
         System.out.println(oss);
     }
 
     @Test
     public void ApiDemo() throws Exception {
-        String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqPvovSfXcwBbW8cKMCgwqNpsYuzF8RPAPFb7LGsnVo44JhM/xxzDyzoYtdfNmtbIuKVi9PzIsyp6rg+09gbuI6UGwBZ5DWBDBMqv5MPdOF5dCQkB2Bbr5yPfURPENypUz+pBFBg41d+BC+rwRiXELwKy7Y9caD/MtJyHydj8OUwIDAQAB";
         ApiVO apiVO = new ApiVO();
         apiVO.setName("apiname");
         apiVO.setUrl("http://demo.com/demo");
-        String api = SzfgAuth.getApi(apiVO, publicKey);
+        String api = SzfgAuth.getApi(apiVO, TestConstant.ROLE_DEV_TEST_publicKey);
         System.out.println(api);
+    }
+
+    @Test
+    public void getSearchIdDemo3OSS() {
+        try {
+            OssVO ossVO = new OssVO();
+            ossVO.setEndpoint("http://oss-cn-beijing.aliyuncs.com");
+            ossVO.setAccessKeyId("xxx");
+            ossVO.setAccessKeySecret("xxx");
+            SearchDataGenerator searchDataGenerator = SearchDataGenerator
+                    .builder()
+                    .role(TestConstant.ROLE_DEV_TEST)
+                    .publicKey(TestConstant.ROLE_DEV_TEST_publicKey)
+                    .caseId("（2000）最高法民再111号")
+                    .caseCause("盗窃罪")
+                    .user("wangxiaoming", "王小明")
+                    .court("石家庄市中级人民法院", "1234")
+                    .addDocument(DocumentType.PAN_JUE_SHU, TestConstant.documentContent)
+                    .addDocument(DocumentType.OTHER, "文书", "庭审笔录.doc")
+                    .oss(ossVO)
+                    .addParty(PartyType.PEOPLE, "张三", "123123199001010001", "被告")
+                    .addParty(PartyType.PEOPLE, "李四", "123123199001010002", "原告")
+                    .nationwide()
+                    .build();
+            String searchId = searchDataGenerator.getSearchId();
+            System.out.println("Search ID: " + searchId);
+
+            System.out.println(searchDataGenerator.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
