@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.cjbdi.szfg.core.vo.SearchVO;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Boning Liang
  */
+@Slf4j
 public class SearchHolder {
 
     private static ConcurrentHashMap<String, SearchCache> searchCache = new ConcurrentHashMap<>();

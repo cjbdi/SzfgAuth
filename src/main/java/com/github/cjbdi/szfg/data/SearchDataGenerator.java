@@ -256,6 +256,7 @@ public class SearchDataGenerator {
     /**
      * 设置将报告保存至ftp服务器
      * @param ftpVO ftp
+     * @param reportVersion 报告版本
      * @throws Exception 异常
      */
     public void saveReport2Ftp(FtpVO ftpVO, String reportVersion) throws Exception {
@@ -268,6 +269,7 @@ public class SearchDataGenerator {
     /**
      * 设置将报告保存至oss服务器
      * @param ossVO oss
+     * @param reportVersion 报告版本
      * @throws Exception 异常
      */
     public void saveReport2Oss(OssVO ossVO, String reportVersion) throws Exception {
